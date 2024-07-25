@@ -1,0 +1,16 @@
+{
+  "name": "projeto-scraping",
+  "version": "1.0.0",
+  "description": "GCC129 - Sistemas Distribuídos - Projeto Prático - 2024/2 - UFLA",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.7.2",
+    "express": "^4.19.2"
+  }
+}

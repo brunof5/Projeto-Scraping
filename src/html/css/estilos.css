@@ -1,0 +1,164 @@
+/* Formatações gerais */
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: hsl(185, 100%, 90%) url(../imagens/fundo.jpg) center no-repeat;
+    background-size: cover;
+    font-size: 16px;
+}
+
+h2, h3 {
+    margin: 10px 0;
+    font-weight: bold;
+}
+
+h2 {
+    padding: 20px;
+    font-size: 1.8em;
+}
+
+h3 {
+    font-size: 1.4em;
+}
+
+/* Formatações do formulário */
+#formulario {
+    width: 500px;
+    margin: 0 auto;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 18px;
+    text-align: center;
+}
+
+#formulario div {
+    padding: 10px;
+}
+
+label {
+    display: inline-block;
+    padding: 10px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+input[type="text"], input[type="tel"], input[type="email"] {
+    height: 1.8em;
+    width: 50%;
+    text-indent: 5px;
+    border: 2px solid gray;
+}
+
+label + input[type="checkbox"] {
+    display: block;
+    margin: 0 auto;
+    width: 25px;
+    height: 25px;
+}
+
+label + input[type='checkbox'] {
+    accent-color: rgb(63,100,46);
+}
+
+/* Formatações do tooltip */
+.my-tooltip {
+    display: inline-block;
+    position: relative;
+}
+
+.my-tooltip h3 {
+    border-bottom: 1px dotted black;
+}
+  
+.my-tooltip .my-tooltiptext {
+    visibility: hidden;
+    width: 500px;
+    background-color: white;
+    color: black;
+    font-size: 0.9em;
+    text-align: justify;
+    border-radius: 6px;
+    padding: 20px;
+    position: absolute;
+    z-index: 1;
+    top: -50px;
+    left: 105%;
+}
+  
+.my-tooltip:hover .my-tooltiptext {
+    visibility: visible;
+}
+
+ul {
+    padding-left: 20px;
+}
+
+.observacao {
+    font-size: 0.55em;
+}
+
+/* Formatações do grid de checkboxs */
+.grid-checkbox {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    justify-content: center;
+    align-content: space-around;
+}
+
+.checkbox-container input {
+    display: none;
+}
+
+.checkbox-container label {
+    width: 100px;
+    padding: 10px;
+    border: 2px solid gray;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.checkbox-container input:checked + label {
+    background-color: rgb(99,174,83);
+    border-color: rgb(99,174,83);
+    color: white;
+}
+
+/* Formatações do botão de envio do formulário */
+#btn-cadastrar {
+    margin-top: 40px;
+    margin-bottom: 20px;
+    padding: 10px;
+    width: 200px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transform: perspective(1px) translateZ(0);
+    position: relative;
+    border: 1px solid gray;
+    background-color: #ffffff00;
+}
+
+#btn-cadastrar:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+    background: linear-gradient(to right, rgba(63,100,46,1) 0%, rgba(99,174,83,1) 90%, rgba(179,225,103,1) 100%);
+    transform: scaleX(0);
+    transform-origin: 0% 50%;
+    transition: transform 0.5s ease-out;
+}
+
+#btn-cadastrar:hover {
+    color: white;
+}
+
+#btn-cadastrar:hover:before {
+    transform: scaleX(1);
+}

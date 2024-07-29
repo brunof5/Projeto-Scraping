@@ -3,7 +3,7 @@
 * Data de Criação: 25/07/2024
 * Autor: Bruno Crespo Ferreira
 * 
-* Versão: 0.1.0
+* Versão: 0.1.1
 * Modificado: 25/07/2014 por Bruno
 */
 
@@ -80,5 +80,6 @@ app.post('/notify', (req, res) => {
     res.status(200).send(response)
 })
 
-app.listen(port)
-console.log(`Aplicação executando na porta ${port}`)
+app.listen(port, () => {
+    console.log(`Aplicação executando na porta ${port}`)
+})

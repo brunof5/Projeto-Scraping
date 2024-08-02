@@ -3,8 +3,8 @@
 * Data de Criação: 25/07/2024
 * Autor: Bruno Crespo Ferreira
 * 
-* Versão: 0.1.1
-* Modificado: 29/07/2024
+* Versão: 0.2.0
+* Modificado: 02/08/2024
 */
 
 const express = require('express')
@@ -78,6 +78,34 @@ app.post('/notify', (req, res) => {
     console.log(`Evento cadastrado: ${JSON.stringify(response.data)}`)
 
     res.status(200).send(response)
+})
+
+app.post('/jogo', (req, res) => {
+    const poste = req.body.data
+    console.log('Dados da Tabela Recebidos:', poste)
+
+    // Aqui você pode processar os dados e armazená-los para envio de notificações
+    // Por exemplo: saveDataToDatabase(poste)
+
+    res.status(200).send('Dados da tabela recebidos com sucesso.')
+})
+
+app.post('/palpite', (req, res) => {
+    const palpite = req.body.data
+    console.log('Dados do Palpite Recebidos:', palpite)
+
+    // Processar os dados e armazená-los para envio de notificações
+
+    res.status(200).send('Dados do palpite recebidos com sucesso.')
+})
+
+app.post('/sonho', (req, res) => {
+    const sonho = req.body.data
+    console.log('Dados do Sonho Recebidos:', sonho)
+
+    // Processar os dados e armazená-los para envio de notificações
+
+    res.status(200).send('Dados do sonho recebidos com sucesso.')
 })
 
 app.listen(port, () => {

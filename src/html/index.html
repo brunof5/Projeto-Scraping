@@ -7,9 +7,8 @@
         
         <link rel="icon" href="favicon.png">
 
-        <!-- Bootstrap para modal apenas, será usado na versão final do trabalho
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-        -->
+
         <link rel="stylesheet" type="text/css" href="css/estilos.css">
     </head>
 
@@ -39,6 +38,7 @@
                         <span class="observacao">*Não está incluso.</span>
                     </span>
                 </div>
+
                 <div class="grid-checkbox">
                     <div class="checkbox-container">
                         <input type="checkbox" id="PPT" name="PPT">
@@ -105,7 +105,6 @@
             </form>
         </div>
 
-        <!-- Modal, ignorado por agora
         <div class="modal fade" id="modalCadastroEvento" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -119,12 +118,9 @@
                 </div>
             </div>
         </div>
-        -->
 
-        <!-- Scripts para o bootstap, ignorado por agora
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
-        -->
 
         <script>
             document.addEventListener('DOMContentLoaded', function() {
@@ -132,7 +128,6 @@
                 const smsCheckbox = document.getElementById('sms')
                 const telegramCheckbox = document.getElementById('telegram')
                 const inputArea = document.getElementById('input-area')
-                const phoneInput = document.getElementById('phone')
 
                 emailCheckbox.addEventListener('change', handleEmail)
                 smsCheckbox.addEventListener('change', handlePhone)
@@ -211,7 +206,7 @@
                     
                 /* Código que formata o input do número de telefone a medida que o usuário digita
                 * Modificado e retirado de: https://codepen.io/taimoorsattar/pen/vYRJExq
-                * Será utilizado na versão final do projeto, ignorado por agora
+                */
                 document.addEventListener('input', function (e) {
                     if(e.target && e.target.id === 'phone') {
                         let cursorPos = e.target.selectionStart
@@ -258,7 +253,6 @@
                         return ""
                     }
                 }
-                */
 
                 document.getElementById('event-form').addEventListener('submit', function(event) {
                     event.preventDefault()
@@ -274,8 +268,6 @@
                     })
                     .then(response => response.json())
                     .then(data => {
-                        alert(`${data.message}`)
-                        /* Modal, ignorado por agora
                         if(data.success === 'true') {
                             document.getElementById('exampleModalLabel').innerText = 'Cadastro Realizado com Sucesso'
                             document.getElementById('descricaoModal').innerHTML = `<p>${data.message}</p>`
@@ -294,7 +286,6 @@
                             myModal.show()
                             
                         }
-                        */
                     })
                 })
             })

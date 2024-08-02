@@ -5,8 +5,8 @@ import json
 import unicodedata
 import re
 
-input_file = '../scraping/sonho.html'
-url = 'http://localhost:3000/sonho'
+input_file = './sonho.html'
+url = 'http://node-server:4000/sonho'
 
 def remove_accentuation(text):
     return ''.join(
@@ -83,7 +83,7 @@ if ul_tag:
                 if valid_list_item:
                     data = extract_data_from_li(valid_list_item)
                     
-                    #print(f"Dados do <li> sorteado: {json.dumps(data, ensure_ascii=False, indent=4)}")
+                    print(f"Dados do <li> sorteado: {json.dumps(data, ensure_ascii=False, indent=4)}")
                     
                     response = requests.post(url, json=data)
                     print(response.status_code, response.reason)

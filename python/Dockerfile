@@ -1,9 +1,9 @@
-# Imagem da versão 3.11-slim do Python
-FROM python:3.11-slim
+# Imagem de uma versão slim do python
+FROM python:3.12-slim
 
 # Atualizar pacotes e instalar ferramentas necessárias
-RUN apt-get update && apt-get install -y nano cron wget \
-    && apt-get clean && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y nano cron bash wget \
+    && rm -rf /var/lib/apt/lists/*
 
 # Instale as dependências do Python
 WORKDIR /app
@@ -14,21 +14,22 @@ RUN pip install -r requirements.txt
 COPY scraping /app/scraping
 COPY cleaning /app/cleaning
 
-# Configure o crontab
-COPY crontab /etc/cron.d/crontab
+# Adicione o arquivo crontab ao container
+COPY crontab /etc/cron.d/log_cron
 
-# Defina as permissões para os scripts de cron
-RUN chmod 0644 /etc/cron.d/crontab \
-    && crontab /etc/cron.d/crontab
+# Dê permissão para os scripts e para o arquivo crontab
+RUN chmod +x /app/scraping/scrape_poste.sh \
+    && chmod +x /app/scraping/scrape_palpite.sh \
+    && chmod +x /app/scraping/scrape_sonho.sh \
+    && chmod 0644 /etc/cron.d/log_cron
+
+# Aplique as permissões e registre o cron no sistema
+RUN crontab /etc/cron.d/log_cron
 
 # Crie um diretório para logs
-RUN mkdir -p /var/log/cron
+RUN mkdir -p /var/log \
+    && chown root:root /var/log \
+    && chmod 0755 /var/log
 
-# Configuração para não executar cron, apenas abrir um terminal
-CMD cron -f
-
-# Como buildar e executar:
-# docker build -t <nome desejado> .
-# docker run --rm -it <nome>
-# Observação: --rm serve para matar o container assim que ele parar,
-# portanto use essa opção até antes de concluir o trabalho
+# Executa o cron
+CMD ["cron", "-f"]

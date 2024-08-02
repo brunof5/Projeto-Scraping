@@ -3,7 +3,7 @@
 * Data de Criação: 25/07/2024
 * Autor: Bruno Crespo Ferreira
 * 
-* Versão: 0.2.0
+* Versão: 0.2.1
 * Modificado: 02/08/2024
 */
 
@@ -100,7 +100,7 @@ app.post('/palpite', (req, res) => {
 })
 
 app.post('/sonho', (req, res) => {
-    const sonho = req.body.data
+    const sonho = req.body
     console.log('Dados do Sonho Recebidos:', sonho)
 
     // Processar os dados e armazená-los para envio de notificações

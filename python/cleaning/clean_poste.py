@@ -3,9 +3,9 @@ from bs4 import BeautifulSoup
 import json
 
 # Nome do arquivo HTML com os dados da tabela
-input_file = '../scraping/poste.html'
+input_file = './poste.html'
 # URL que o dataset será enviado
-url = 'http://localhost:3000/jogo'
+url = 'http://node-server:4000/jogo'
 
 # Ler o conteúdo do arquivo
 with open(input_file, 'r', encoding='utf-8') as file:
@@ -31,10 +31,10 @@ if p_element:
             results.append(data)
 
         # Printar os resultados
-        #for i, row_data in enumerate(results):
-        #    print(f"Linha {i+1}: {row_data}")
+        for i, row_data in enumerate(results):
+            print(f"Linha {i+1}: {row_data}")
 
-        response = requests.post(url, json={'data': data})
+        response = requests.post(url, json={'data': results})
         print(response.status_code, response.reason)
 
     else:

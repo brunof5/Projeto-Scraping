@@ -1,0 +1,2 @@
+# Executa scrape_palpite.sh e notify_palpite.py a cada 6 horas
+0 */6 * * * /bin/bash /app/scraping/scrape_palpite.sh >> /var/log/scrape_palpite.log 2>&1 && /usr/local/bin/python /app/cleaning/notify_palpite.py >> /var/log/notify_palpite.log 2>&1

@@ -1,0 +1,2 @@
+# Executa scrape_sonho.sh e notify_sonho.py às 08:00 diariamente
+0 8 * * * /bin/bash /app/scraping/scrape_sonho.sh >> /var/log/scrape_sonho.log 2>&1 && /usr/local/bin/python /app/cleaning/notify_sonho.py >> /var/log/notify_sonho.log 2>&1

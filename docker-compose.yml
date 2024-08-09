@@ -1,0 +1,50 @@
+services:
+  node-server:
+    build:
+      context: ./src
+      dockerfile: Dockerfile
+    container_name: node-server
+    ports:
+      - "4000:4000"
+    networks:
+      - rede-legal
+
+  python-poste:
+    build:
+      context: ./python/poste
+      dockerfile: Dockerfile
+    container_name: python-poste
+    volumes:
+      - ./python/poste/scraping/:/app/scraping
+      - ./python/poste/cleaning/:/app/cleaning
+      - ./python/poste/crontab/:/etc/cron.d/log_cron
+    networks:
+      - rede-legal
+
+  python-palpite:
+    build:
+      context: ./python/palpite
+      dockerfile: Dockerfile
+    container_name: python-palpite
+    volumes:
+      - ./python/palpite/scraping/:/app/scraping
+      - ./python/palpite/cleaning/:/app/cleaning
+      - ./python/palpite/crontab/:/etc/cron.d/log_cron
+    networks:
+      - rede-legal
+
+  python-sonho:
+    build:
+      context: ./python/sonho
+      dockerfile: Dockerfile
+    container_name: python-sonho
+    volumes:
+      - ./python/sonho/scraping/:/app/scraping
+      - ./python/sonho/cleaning/:/app/cleaning
+      - ./python/sonho/crontab/:/etc/cron.d/log_cron
+    networks:
+      - rede-legal
+
+networks:
+  rede-legal:
+    driver: bridge

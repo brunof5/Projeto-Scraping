@@ -1,6 +1,0 @@
-# Executa scrape_poste.sh e clean_poste.py às 9:35, 11:35, 14:35, 16:35, 18:35 e 21:35 diariamente
-35 9,11,14,16,18,21 * * * /bin/bash /app/scraping/scrape_poste.sh >> /var/log/scrape_poste.log 2>&1 && python3 /app/cleaning/clean_poste.py >> /var/log/clean_poste.log 2>&1
-
-# Executa scrape_palpite.sh, clean_palpite.py, scrape_sonho.sh e clean_sonho.py às 12:00 diariamente
-0 12 * * * /bin/bash /app/scraping/scrape_palpite.sh >> /var/log/scrape_palpite.log 2>&1 && python3 /app/cleaning/clean_palpite.py >> /var/log/clean_palpite.log 2>&1
-0 12 * * * /bin/bash /app/scraping/scrape_sonho.sh >> /var/log/scrape_sonho.log 2>&1 && python3 /app/cleaning/clean_sonho.py >> /var/log/clean_sonho.log 2>&1

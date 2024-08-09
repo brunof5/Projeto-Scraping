@@ -6,8 +6,9 @@
 
 body {
     font-family: Arial, Helvetica, sans-serif;
-    background: hsl(185, 100%, 90%) url(../imagens/fundo.jpg) center no-repeat;
+    background: hsl(185, 100%, 90%) url(../imagens/fundo.jpg) center center no-repeat;
     background-size: cover;
+    background-attachment: fixed;
     font-size: 16px;
 }
 
@@ -26,15 +27,15 @@ h3 {
 }
 
 /* Formatações do formulário */
-#formulario {
+#container {
     width: 500px;
     margin: 0 auto;
-    background-color: rgba(255, 255, 255, 0.8);
+    background-color: rgba(255, 255, 255, 0.7);
     border-radius: 18px;
     text-align: center;
 }
 
-#formulario div {
+#container div {
     padding: 10px;
 }
 
@@ -104,10 +105,17 @@ ul {
     font-size: 0.55em;
 }
 
-/* Formatações do grid de checkboxs */
+/* Formatações dos checkboxs */
 .grid-checkbox {
     display: grid;
     grid-template-columns: auto auto auto;
+    justify-content: center;
+    align-content: space-around;
+}
+
+.flex-checkbox {
+    display: flex;
+    flex-direction: row;
     justify-content: center;
     align-content: space-around;
 }
@@ -117,17 +125,29 @@ ul {
 }
 
 .checkbox-container label {
-    width: 100px;
     padding: 10px;
     border: 2px solid gray;
     border-radius: 4px;
     cursor: pointer;
 }
 
+.grid-checkbox .checkbox-container label {
+    width: 100px;
+}
+
+.flex-checkbox .checkbox-container label {
+    width: 60px;
+}
+
 .checkbox-container input:checked + label {
     background-color: rgb(99,174,83);
     border-color: rgb(99,174,83);
     color: white;
+}
+
+.disabled, .checkbox-container label.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
 }
 
 /* Formatações do botão de envio do formulário */

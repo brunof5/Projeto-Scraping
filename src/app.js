@@ -4,7 +4,7 @@
 * Autor: Bruno Crespo Ferreira
 * 
 * Versão: 0.3.1
-* Modificado: 09/08/2024
+* Modificado: 10/08/2024
 */
 
 const express = require('express')

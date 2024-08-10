@@ -3,7 +3,7 @@
 * Data de Criação: 25/07/2024
 * Autor: Bruno Crespo Ferreira
 * 
-* Versão: 0.3.1
+* Versão: 0.3.2
 * Modificado: 10/08/2024
 */
 

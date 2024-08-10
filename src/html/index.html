@@ -12,26 +12,26 @@
 
     <body>
         <div id="container">
-            <h2>Jogo Do Bicho - Sitema de Notificação</h2>
+            <h2>Jogo Do Bicho - Sistema de Notificação</h2>
             <h3>Selecione o Serviço:</h3>
             <div class="flex-checkbox-column">
                 <div class="checkbox-container">
-                    <input type="checkbox" id="cadastro" onclick="mudarURL('/cadastro')">
+                    <input type="checkbox" id="cadastro" onclick="this.checked = false; mudarURL('/cadastro')">
                     <label for="cadastro">Cadastro</label>
                 </div>
 
                 <div class="checkbox-container">
-                    <input type="checkbox" id="poste" onclick="mudarURL('/poste')">
+                    <input type="checkbox" id="poste" onclick="this.checked = false; mudarURL('/poste')">
                     <label for="poste">Deu no Poste</label>
                 </div>
 
                 <div class="checkbox-container">
-                    <input type="checkbox" id="palpite" onclick="mudarURL('/palpite')">
+                    <input type="checkbox" id="palpite" onclick="this.checked = false; mudarURL('/palpite')">
                     <label for="palpite">Palpites</label>
                 </div>
 
                 <div class="checkbox-container">
-                    <input type="checkbox" id="sonho" onclick="mudarURL('/sonho')">
+                    <input type="checkbox" id="sonho" onclick="this.checked = false; mudarURL('/sonho')">
                     <label for="sonho">Sonho</label>
                 </div>
             </div>
@@ -41,7 +41,7 @@
             function mudarURL(param) {
                 fetch(param)
                 .then(function(response) {
-                    window.location.replace(response.url)
+                    window.location.href = response.url
                 })
             }
         </script>

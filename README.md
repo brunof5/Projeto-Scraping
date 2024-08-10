@@ -4,7 +4,7 @@
 ![Static Badge](https://img.shields.io/badge/Sistemas_Distribu%C3%ADdos-Projeto_Pr%C3%A1tico-blue)
 ![Static Badge](https://img.shields.io/badge/2024%2F2-gray)
 
-![Static Badge](https://img.shields.io/badge/version-v0.3.1-blue)
+![Static Badge](https://img.shields.io/badge/version-v0.3.2-blue)
 
 ![Static Badge](https://img.shields.io/badge/HTML5-red)
 ![Static Badge](https://img.shields.io/badge/CSS3-blue)

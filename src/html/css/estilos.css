@@ -102,7 +102,7 @@ ul {
 }
 
 .observacao {
-    font-size: 0.55em;
+    font-size: 0.65em;
 }
 
 /* Formatações dos checkboxs */
@@ -113,11 +113,18 @@ ul {
     align-content: space-around;
 }
 
-.flex-checkbox {
+.flex-checkbox, .flex-checkbox-column {
     display: flex;
-    flex-direction: row;
     justify-content: center;
     align-content: space-around;
+}
+
+.flex-checkbox {
+    flex-direction: row;
+}
+
+.flex-checkbox-column {
+    flex-direction: column;
 }
 
 .checkbox-container input {

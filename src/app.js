@@ -3,7 +3,7 @@
 * Data de Criação: 25/07/2024
 * Autor: Bruno Crespo Ferreira
 * 
-* Versão: 0.3.0
+* Versão: 0.3.1
 * Modificado: 09/08/2024
 */
 
@@ -16,7 +16,7 @@ const app = express()
 
 const port = process.env.PORT
 
-// Configurar o middleware para servir arquivos estáticos da pasta 'html'
+// Middleware para servir arquivos estáticos da pasta 'html'
 app.use(express.static(path.join(__dirname, 'html')))
 
 // Middleware para parsear requisições JSON e formulário URL-encoded
@@ -32,6 +32,7 @@ const currentData = {
     sonho: {}
 }
 
+/*****  PROCESSAMENTO DE E-MAILS *****/
 // Fila global para armazenar e-mails a serem enviados
 const emailQueue = []
 // Flag para controlar o processamento da fila
@@ -83,7 +84,7 @@ async function processEmailQueue() {
     isProcessingQueue = false
 }
 
-// Função para adicionar e-mail à fila e iniciar o processamento se não estive já em andamento
+// Função para adicionar e-mail à fila e iniciar o processamento se não estiver já em andamento
 function enqueueEmail(email, subject, text) {
     emailQueue.push({ email, subject, text })
     processEmailQueue()
@@ -98,6 +99,7 @@ app.get('/api/poste', async (req, res) => {
     try {
         const response = await axios.get('http://python-poste:4001/')
         currentData.poste = response.data
+
         res.json(currentData.poste.data)
     } catch (error) {
         res.status(500).send("Erro ao chamar o microserviço Python - Deu no Poste")
@@ -113,6 +115,7 @@ app.get('/api/palpite', async (req, res) => {
     try {
         const response = await axios.get('http://python-palpite:4002/')
         currentData.palpite = response.data
+
         res.json(currentData.palpite.data)
     } catch (error) {
         res.status(500).send("Erro ao chamar o microserviço Python - Palpite")
@@ -128,6 +131,7 @@ app.get('/api/sonho', async (req, res) => {
     try {
         const response = await axios.get('http://python-sonho:4003/')
         currentData.sonho = response.data
+
         res.json(currentData.sonho.data)
     } catch (error) {
         res.status(500).send("Erro ao chamar o microserviço Python - Sonho")
@@ -135,12 +139,12 @@ app.get('/api/sonho', async (req, res) => {
 })
 
 /***** CADASTRO DE EVENTO *****/
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'html', 'index.html'))
+app.get('/cadastro', (req, res) => {
+    res.sendFile(path.join(__dirname, 'html', 'cadastro.html'))
 })
 
 app.post('/notify', (req, res) => {
-    const { name, PPT, PTM, PT, PTV, FED, COR, palpite, sonho, emailCheckbox, sms, telegram, email, phone } = req.body
+    const { name, PPT, PTM, PT, PTV, FED, COR, palpite, sonho, emailCheckbox, email } = req.body
 
     const eventos = []
     if (PPT) eventos.push('PPT')
@@ -152,8 +156,6 @@ app.post('/notify', (req, res) => {
 
     const notificacoes = []
     if (emailCheckbox) notificacoes.push('Email')
-    if (sms) notificacoes.push('SMS')
-    if (telegram) notificacoes.push('Telegram')
 
     if(!name || eventos.length == 0 || notificacoes.length == 0) {
         return res.status(400).send({
@@ -169,13 +171,6 @@ app.post('/notify', (req, res) => {
         })
     }
 
-    if((notificacoes.includes('SMS') || notificacoes.includes('Telegram')) && !phone) {
-        return res.status(400).send({
-            success: 'false',
-            message: 'Número de telefone não preenchido!'
-        })
-    }
-
     const response = {
         success: 'true',
         message: 'Cadastro de Evento foi realizado com sucesso!',
@@ -184,12 +179,10 @@ app.post('/notify', (req, res) => {
             eventos,
             palpite: palpite ? 'Sim' : 'Não',
             sonho: sonho ? 'Sim' : 'Não',
-            email: notificacoes.includes('Email') ? email : '',
-            telefone: notificacoes.includes('SMS') || notificacoes.includes('Telegram') ? phone : ''
+            email: notificacoes.includes('Email') ? email : ''
         }
     }
 
-    // Armazenar dados na estrutura global
     global.eventosCadastrados.push(response.data)
 
     console.log(`Evento cadastrado: ${JSON.stringify(response.data)}`)
@@ -199,9 +192,7 @@ app.post('/notify', (req, res) => {
 
 /***** ROTA PARA ENVIAR NOTIFICAÇÕES *****/
 app.post('/send-notifications', (req, res) => {
-    console.log(req.body)
-
-    const { tipo, data, eventos } = req.body
+    const { tipo, data } = req.body
 
     if (!tipo) {
         return res.status(400).send({
@@ -231,6 +222,13 @@ app.post('/send-notifications', (req, res) => {
             if (evento.email) {
                 const subject = `Deu no Poste - Jogo do Bicho`
 
+                /*
+                * Uma linha de dados deu no poste tem o seguinte padrão: [identificador, valor-1, valor-2, valor-3, valor-4, valor-5, valor-6]
+                * valor-x pode ser '0000-0' se o evento ainda não aconteceu
+                * Cada valor-x tem um correspondente em eventoIndices, exemplo: valor-4 se relaciona com 'PTV'
+                * Os eventoIndices selecionados são aqueles que o usuário selecionou em seu cadastro
+                * Há a separação dos eventoIndices em linhas, se valor-x for '0000-0', tal evento não é incluso
+                */
                 const textoEventos = data.map(row => {
                     const identificador = row[0]
                     const valores = evento.eventos.map(e => {
@@ -291,6 +289,10 @@ app.post('/send-notifications', (req, res) => {
             message: 'O tipo de notificação não existe ou não é suportado'
         })
     }
+})
+
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'html', 'index.html'))
 })
 
 /***** EXECUÇÃO *****/

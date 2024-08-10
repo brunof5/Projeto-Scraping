@@ -1,9 +1,9 @@
 #!/bin/bash
 
-# URL da página com a <ul> de classe 'button-group'
+# URL da página com os sonhos
 URL="https://www.ojogodobicho.com/sonhosindice.htm"
 
-# Nome do arquivo onde o conteúdo será salvo
+# Nome e diretório do arquivo onde o conteúdo será salvo
 OUTPUT_FILE="/app/sonho.html"
 
 # Baixar a página

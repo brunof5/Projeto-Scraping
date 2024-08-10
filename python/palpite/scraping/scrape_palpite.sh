@@ -1,9 +1,9 @@
 #!/bin/bash
 
-# URL da página com a <ul> de classe 'accordion'
+# URL da página com os palpites, somente pegaremos o palpite de grupo
 URL="https://www.ojogodobicho.com/palpite.htm"
 
-# Nome do arquivo onde o conteúdo será salvo
+# Nome e diretório do arquivo onde o conteúdo será salvo
 OUTPUT_FILE="/app/palpite.html"
 
 # Baixar a página

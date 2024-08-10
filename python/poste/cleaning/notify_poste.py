@@ -1,4 +1,4 @@
-import requests
+import requests # Permite fazer requisições HTTP
 from data_processing import process_poste_data
 
 input_file = '/app/poste.html'
@@ -6,6 +6,7 @@ input_file = '/app/poste.html'
 def notify_poste():
     data = process_poste_data(input_file)
 
+    # Envia uma requisição POST para o servidor com os dados processados no formato JSON
     response = requests.post('http://node-server:4000/send-notifications', json=data)
 
     if response.status_code == 200:

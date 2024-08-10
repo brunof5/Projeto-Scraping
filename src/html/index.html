@@ -6,122 +6,44 @@
         <title>Jogo do Bicho - Sistema de Notificação</title>
         
         <link rel="icon" href="favicon.png">
-
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-
+        
         <link rel="stylesheet" type="text/css" href="css/estilos.css">
     </head>
 
     <body>
         <div id="container">
-            <h2>Jogo do Bixo - Cadastro de Evento</h2>
-            <form action="/notify" method="post" id="event-form">
-                <div>
-                    <label for="name" class="label-custom-width">Nome:</label>
-                    <input type="text" id="name" name="name" placeholder="Digite seu nome">
+            <h2>Jogo Do Bicho - Sitema de Notificação</h2>
+            <h3>Selecione o Serviço:</h3>
+            <div class="flex-checkbox-column">
+                <div class="checkbox-container">
+                    <input type="checkbox" id="cadastro" onclick="mudarURL('/cadastro')">
+                    <label for="cadastro">Cadastro</label>
                 </div>
 
-                <div class="my-tooltip">
-                    <h3>Resultado</h3>
-                    <span class="my-tooltiptext">
-                        <p>Escolha o(s) sorteio(s) desejado(s).</p>
-                        <p>Tradicionalmente, existem pelo menos 6 sorteios diários da banca PARA TODOS no Rio de Janeiro, conhecidos como:</p>
-                        <ul>
-                            <li>PPT (Primeira Para Todos) - 9:30</li>
-                            <li>PTM (Para Todos Matinal) - 11:30</li>
-                            <li>PT (Para Todos)  - 14:30</li>
-                            <li>PTV (Para Todos Vespertino) - 16:30</li>
-                            <li>PTN* (Para Todos Noite) - 18:30</li>
-                            <li>FED (Loteria Federal) - 19:30</li>
-                            <li>COR (Corujinha/Corujão) - 21:30</li>
-                        </ul>
-                        <span class="observacao">*Não está incluso.</span>
-                    </span>
+                <div class="checkbox-container">
+                    <input type="checkbox" id="poste" onclick="mudarURL('/poste')">
+                    <label for="poste">Deu no Poste</label>
                 </div>
 
-                <div class="grid-checkbox">
-                    <div class="checkbox-container">
-                        <input type="checkbox" id="PPT" name="PPT">
-                        <label for="PPT">PPT</label>
-                    </div>
-
-                    <div class="checkbox-container">
-                        <input type="checkbox" id="PTM" name="PTM">
-                        <label for="PTM">PTM</label>
-                    </div>
-
-                    <div class="checkbox-container">
-                        <input type="checkbox" id="PT" name="PT">
-                        <label for="PT">PT</label>
-                    </div>
-
-                    <div class="checkbox-container">
-                        <input type="checkbox" id="PTV" name="PTV">
-                        <label for="PTV">PTV</label>
-                    </div>
-
-                    <div class="checkbox-container">
-                        <input type="checkbox" id="FED" name="FED">
-                        <label for="FED">FED</label>
-                    </div>
-
-                    <div class="checkbox-container">
-                        <input type="checkbox" id="COR" name="COR">
-                        <label for="COR">COR</label>
-                    </div>
+                <div class="checkbox-container">
+                    <input type="checkbox" id="palpite" onclick="mudarURL('/palpite')">
+                    <label for="palpite">Palpites</label>
                 </div>
 
-                <div>
-                    <label for="palpite">Deseja receber palpite de jogo regularmente?</label>
-                    <input type="checkbox" id="palpite" name="palpite">
-                </div>
-
-                <div>
-                    <label for="sonho">Deseja receber o significado de um sonho aleatório regularmente?</label>
-                    <input type="checkbox" id="sonho" name="sonho">
-                </div>
-
-                <h3>Via de Notificação</h3>
-                <div class="grid-checkbox">
-                    <div class="checkbox-container">
-                        <input type="checkbox" id="emailCheckbox" name="emailCheckbox">
-                        <label for="emailCheckbox">E-mail</label>
-                    </div>
-
-                    <div class="checkbox-container">
-                        <input type="checkbox" id="sms" name="sms">
-                        <label for="sms">SMS</label>
-                    </div>
-
-                    <div class="checkbox-container">
-                        <input type="checkbox" id="telegram" name="telegram">
-                        <label for="telegram">Telegram</label>
-                    </div>
-                </div>
-
-                <div id="input-area"></div>
-    
-                <button type="submit" id="btn-cadastrar">Cadastrar Evento</button>
-            </form>
-        </div>
-
-        <div class="modal fade" id="modalCadastroEvento" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel"></h5>
-                    </div>
-                    <div class="modal-body" id="descricaoModal"></div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn" id="btnVoltar" data-bs-dismiss="modal">Voltar</button>
-                    </div>
+                <div class="checkbox-container">
+                    <input type="checkbox" id="sonho" onclick="mudarURL('/sonho')">
+                    <label for="sonho">Sonho</label>
                 </div>
             </div>
         </div>
 
-        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
-
-        <script src="scripts/index.js"></script>
+        <script>
+            function mudarURL(param) {
+                fetch(param)
+                .then(function(response) {
+                    window.location.replace(response.url)
+                })
+            }
+        </script>
     </body>
 </html>

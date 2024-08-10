@@ -1,36 +1,38 @@
 document.addEventListener('DOMContentLoaded', () => {
     const pathName = window.location.pathname
     const dataType = pathName.split('/').pop()
-    
+
     if (dataType === 'poste') {
         fetch('/api/poste')
-            .then(response => response.json())
-            .then(data => {
-                createCheckboxs(data)
-                
-                document.getElementById('checkbox-selection').addEventListener('change', (event) => {
-                    handleCheckboxChange(event, data)
-                })
+        .then(response => response.json())
+        .then(data => {
+            createCheckboxs(data)
+
+            document.getElementById('checkbox-selection').addEventListener('change', (event) => {
+                handleCheckboxChange(event, data)
             })
+        })
+            
     } else if (dataType === 'palpite') {
         fetch('/api/palpite')
-            .then(response => response.json())
-            .then(data => {
-                if (data.length > 0) {
-                    document.getElementById('palpite').textContent = data.slice(0, 5).join('\t')
-                }
-            })
+        .then(response => response.json())
+        .then(data => {
+            if (data.length > 0) {
+                document.getElementById('palpite').textContent = data.slice(0, 5).join('\t')
+            }
+        })
+
     } else if (dataType === 'sonho') {
         fetch('/api/sonho')
-            .then(response => response.json())
-            .then(data => {
-                if (Object.keys(data).length > 0) {
-                    document.getElementById('title').textContent = data['title']
-                    document.getElementById('description-title').textContent = data['description-title']
-                    document.getElementById('description').textContent = data['description']
-                    document.getElementById('palpite').innerHTML = `<strong>Bicho: ${data['Bicho']}</strong> - G: ${data['G']} - D: ${data['D']} - C: ${data['C']} - M: ${data['M']}`
-                }
-            })
+        .then(response => response.json())
+        .then(data => {
+            if (Object.keys(data).length > 0) {
+                document.getElementById('title').textContent = data['title']
+                document.getElementById('description-title').textContent = data['description-title']
+                document.getElementById('description').textContent = data['description']
+                document.getElementById('palpite').innerHTML = `<strong>Bicho: ${data['Bicho']}</strong> - G: ${data['G']} - D: ${data['D']} - C: ${data['C']} - M: ${data['M']}`
+            }
+        })
     }
 })
 
@@ -43,7 +45,7 @@ function createCheckboxs(data) {
     const sorteio = ['PPT', 'PTM', 'PT', 'PTV', 'FED', 'COR']
 
     sorteio.forEach((label, index) => {
-        // Criar checkbox para cada sorteio
+        // Cria checkbox para cada sorteio
         const checkboxContainer = document.createElement('div')
         checkboxContainer.className = 'checkbox-container'
 
@@ -56,7 +58,7 @@ function createCheckboxs(data) {
         labelElement.htmlFor = checkbox.id
         labelElement.textContent = label
 
-        // Verificar se a posição contém apenas '0000-0'
+        // Verifica se a posição contém apenas '0000-0', desativa o checkbox se sim
         if (data) {
             const allZeros = data.every(row => row[index + 1] === '0000-0')
             if (allZeros) {
@@ -76,6 +78,7 @@ function createCheckboxs(data) {
     })
 }
 
+// Função que faz o 'uncheck' do botões e deixa 'check' o único que foi clicado
 function handleCheckboxChange(event, data) {
     if (event.target.type === 'checkbox') {
         document.querySelectorAll('#checkbox-selection input[type="checkbox"]').forEach(checkbox => {
@@ -84,11 +87,11 @@ function handleCheckboxChange(event, data) {
             }
         })
 
-        updateChart(data)
+        createChart(data)
     }
 }
 
-function updateChart(data) {
+function createChart(data) {
     const oldCanvas = document.getElementById('chart-canvas')
     if (oldCanvas) {
         oldCanvas.remove()
@@ -103,18 +106,13 @@ function updateChart(data) {
 
     const selectedCheckbox = document.querySelector('#checkbox-selection input[type="checkbox"]:checked')
 
-    console.log(selectedCheckbox)
-
     if (selectedCheckbox) {
         const index = parseInt(selectedCheckbox.id.replace('position', ''))
-        
-        // Filtrar dados selecionados
-        const selectedData = data.map(row => row[index + 1])
-        .filter(value => value !== '0000-0') // Ignorar '0000-0'
-    
-        console.log(selectedData)
-    
-        // Renderizar gráfico com os dados selecionados
+
+        // Filtra dados selecionados, ignora '0000-0'
+        const selectedData = data.map(row => row[index + 1]).filter(value => value !== '0000-0')
+
+        // Renderiza o gráfico com os dados selecionados
         renderDoughnutChart(ctx, selectedData)
     }
 }
@@ -127,19 +125,20 @@ function renderDoughnutChart(ctx, data) {
         data: [],
         backgroundColor: []
     }]
-    
-    const colorMap = {} // Para garantir cores únicas
+
+    // Para garantir cores únicas
+    const colorMap = {}
 
     data.forEach(item => {
         const codigo = item.split('-')
         const value = parseInt(codigo[0])
         const grupo = animais[codigo[1] - 1]
-        const color = `#${Math.floor(Math.random()*16777215).toString(16)}` // Gera cor aleatória
+        const color = `#${Math.floor(Math.random() * 16777215).toString(16)}`   // Gera cor aleatória
 
         if (!colorMap[value]) {
             colorMap[value] = color
         }
-        
+
         labels.push(grupo)
         datasets[0].data.push(value)
         datasets[0].backgroundColor.push(colorMap[value])
@@ -159,7 +158,7 @@ function renderDoughnutChart(ctx, data) {
                 },
                 tooltip: {
                     callbacks: {
-                        label: function(tooltipItem) {
+                        label: function (tooltipItem) {
                             return `Valor: ${tooltipItem.label} - ${tooltipItem.raw}`
                         }
                     }
@@ -168,7 +167,7 @@ function renderDoughnutChart(ctx, data) {
                     display: true,
                     anchor: 'end',
                     align: 'end',
-                    formatter: (value, context) => context.dataIndex + 1, // Rótulo sobre o setor
+                    formatter: (value, context) => context.dataIndex + 1,   // Rótulo sobre o setor
                     color: '#000',
                     font: {
                         weight: 'bold'

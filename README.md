@@ -2,7 +2,7 @@
 
 ![Static Badge](https://img.shields.io/badge/GCC129-UFLA-green)
 ![Static Badge](https://img.shields.io/badge/Sistemas_Distribu%C3%ADdos-Projeto_Pr%C3%A1tico-blue)
-![Static Badge](https://img.shields.io/badge/2024%2F2-gray)
+![Static Badge](https://img.shields.io/badge/2024%2F1-gray)
 
 ![Static Badge](https://img.shields.io/badge/version-v0.3.2-blue)
 
